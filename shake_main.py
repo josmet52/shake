@@ -18,8 +18,8 @@ VERSION 0.00a - initialisation du projet shake
 VERSION_FILE = "shake_main.py"
 VERSION_NO = "0.00a"
 VERSION_DATE = "26.12.2018"
-VERSION_AUTEUR = "Joseph Métrailler"
-VERSION_DESCRIPTION = "Initialisation du projet"
+VERSION_AUTEUR = "josmet"
+VERSION_DESCRIPTION = "Project init"
 
 # external libraries
 # from shutil import copyfile
@@ -60,11 +60,8 @@ winPosX = (screenWidth / 2) - (int(maxWidth / 2))
 winPosY = (screenHeight / 2) - (int(maxHeight / 2)) - int(TOOL_BAR_HEIGHT / 2)
 # fix the geometry os the formular
 msgDisplay.geometry('%dx%d+%d+%d' % (maxWidth, maxHeight, winPosX, winPosY))
-msgDisplay.title("".join(["FET epub optimizer version : ", VERSION_NO, " - ", VERSION_DATE, " - ", VERSION_DESCRIPTION]))
-img_tmp="logo_fet.png"
-img=ImageTk.PhotoImage(Image.open(img_tmp))
-msgDisplay.call('wm','iconphoto',msgDisplay,img)
-
+msgDisplay.title("".join(["Shake version : ", VERSION_NO, " - ", VERSION_DATE, " - ", VERSION_DESCRIPTION]))
+msgDisplay.tk.call('wm','iconphoto',msgDisplay._w,tk.PhotoImage("jo.ico"))
 
 # create a frame in the display formular
 # lblHead = tk.Label(msgDisplay, text="Welcome in fet_epub app", fg='black', font='"Segoe UI" 9 italic').pack(anchor=W, ipadx=1, ipady=2)
