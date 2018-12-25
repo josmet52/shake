@@ -102,9 +102,9 @@ btnQuit = tk.Button(btnFrame, text="QUIT", textvariable="btnQuit", command=lambd
 # btnEssais = tk.Button(btnFrame, text="PRG essais", textvariable="btnEssais", command=lambda: prg_essais(),
 #                     bg="cyan").grid(row=0, column=7, ipadx=15, padx=2, pady=15)
 
-y = ShakeLib()
+x = ShakeLib(msgList, msgDisplay)
 # display the formular and wait until somebody push a button
-x.manage_info("To start click on a button", 1, 1)
+x.manage_info("To start click on a button", 1)
 
 
 msgDisplay.mainloop()
