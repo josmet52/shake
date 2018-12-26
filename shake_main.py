@@ -4,8 +4,6 @@
 """
 shake_main.py
 ===========
-Programme qui adapte au format epub3 les fichiers générés par la plateforme Publiwide 
-Ce programme initialise quelques variables et lance la fonction new_job de la classe fet_class.py
 fichiers : shake_main.py, shake_lib.py
 auteur : josmet
 date : 26.12.2018
@@ -24,24 +22,45 @@ VERSION_DESCRIPTION = "Project init"
 # external libraries
 # from shutil import copyfile
 import tkinter as tk
-import time
+#import time
 from tkinter import *
-import PIL
-from PIL import Image
-from PIL import ImageTk
+import sys
+#import PIL
+#from PIL import Image
+#from PIL import ImageTk
 
 # this programm files
 from shake_lib import ShakeLib
-
 
 def clean_quit(window_2_close):
     print("bye from QUIT button")
     window_2_close.destroy()
     sys.exit(0)
 
-def file_job_go():
-    x.file_job()
+def run_go():
+    x.run_shake(verbose_onoff)
 
+def run_settings():
+    x.run_settings(verbose_onoff)
+        
+
+def verbose_toggle():
+    global verbose_onoff
+    verbose_onoff = not verbose_onoff
+    if verbose_onoff :
+        x.manage_info("Verbose ON", 2)
+    else :
+        x.manage_info("Verbose OFF", 2)
+        
+    if verbose_onoff :
+        vBtnText = "Verbose OFF"
+    else :
+        vBtnText = "Verbose ON"
+    btnVerbose["text"] = vBtnText
+
+# -----------------------
+# MAIN PROGRAM
+# -----------------------
 # declare the display
 msgDisplay = tk.Tk()
 # fix the dimensions of the application window
@@ -61,7 +80,7 @@ winPosY = (screenHeight / 2) - (int(maxHeight / 2)) - int(TOOL_BAR_HEIGHT / 2)
 # fix the geometry os the formular
 msgDisplay.geometry('%dx%d+%d+%d' % (maxWidth, maxHeight, winPosX, winPosY))
 msgDisplay.title("".join(["Shake version : ", VERSION_NO, " - ", VERSION_DATE, " - ", VERSION_DESCRIPTION]))
-msgDisplay.tk.call('wm','iconphoto',msgDisplay._w,tk.PhotoImage("jo.ico"))
+msgDisplay.tk.call('wm','iconphoto',msgDisplay._w,tk.PhotoImage("logo_fet.png"))
 
 # create a frame in the display formular
 # lblHead = tk.Label(msgDisplay, text="Welcome in fet_epub app", fg='black', font='"Segoe UI" 9 italic').pack(anchor=W, ipadx=1, ipady=2)
@@ -83,26 +102,29 @@ msgList.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 # prepare the formular to be displayed
 btnFrame = tk.Frame(msgDisplay)
 btnFrame.pack(side=tk.BOTTOM)
+varTxtBtnVerbose = ""
 
-# btnTest = tk.Button(btnFrame, text="Test soft", textvariable="btnTest", command=lambda: test_soft_go(),
-#                     bg="coral").grid(row=0, column=2, ipadx=15, padx=2, pady=5)
+btnSettings = tk.Button(btnFrame, text="Settings", textvariable="btnSettings", command=lambda: run_settings(),
+                     bg="coral").grid(row=0, column=2, ipadx=15, padx=2, pady=5)
 
-#btnDirJob = tk.Button(btnFrame, text="Improve dir", textvariable="btnDirJob", command=lambda: dir_job_go(),
-#                      bg="wheat3").grid(row=0, column=3, ipadx=15, padx=2, pady=5)
-btnFileJob = tk.Button(btnFrame, text="Improve file", textvariable="btnFileJob", command=lambda: file_job_go(),
+btnVerbose = tk.Button(btnFrame, text="Verbose", command=lambda: verbose_toggle(), bg="wheat1")
+btnVerbose.grid(row=0, column=5, ipadx=15, padx=2, pady=5)
+
+btnRun = tk.Button(btnFrame, text="Run", textvariable="btnRun", command=lambda: run_go(),
                        bg="wheat3").grid(row=0, column=4, ipadx=15, padx=2, pady=5)
-#btnVerif = tk.Button(btnFrame, text="Verify file", textvariable="btnVerif", command=lambda: verify_job_go(),
-#                     bg="wheat1").grid(row=0, column=5, ipadx=15, padx=2, pady=5)
+
 btnQuit = tk.Button(btnFrame, text="QUIT", textvariable="btnQuit", command=lambda: clean_quit(msgDisplay),
                     bg="light blue").grid(row=0, column=6, ipadx=15, padx=2, pady=5)
 
-# btnEssais = tk.Button(btnFrame, text="PRG essais", textvariable="btnEssais", command=lambda: prg_essais(),
-#                     bg="cyan").grid(row=0, column=7, ipadx=15, padx=2, pady=15)
-
 x = ShakeLib(msgList, msgDisplay)
-# display the formular and wait until somebody push a button
-x.manage_info("To start click on a button", 1)
+# display the formular and wait until someone push a button
+x.manage_info("To start click on a button",3)
 
+#btnVerbose.config(textvariable=varTxtBtnVerbose)
+#varTxtBtnVerbose = "hahaha"
+
+verbose_onoff = False
+verbose_toggle()
 
 msgDisplay.mainloop()
 
